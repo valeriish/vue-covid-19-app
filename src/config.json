@@ -1,0 +1,108 @@
+{
+  "resources": {
+    "api": {
+      "hostname": "https://api.covidtracking.com",
+      "usDailyDataEndpoint": "/v1/us/daily.json"
+    },
+    "getDailyDataEndpoint": "/api/daily",
+    "getSummaryEndpoint": "/api/summary"
+  },
+  "schema": {
+    "summary": {
+      "dailyCases": [
+        {
+          "label": "Total cases",
+          "key": "positive"
+        },
+        {
+          "label": "New cases today",
+          "key": "positiveIncrease"
+        }
+      ],
+      "dailyTest": [
+        {
+          "label": "Total tests",
+          "key": "totalTestResults"
+        },
+        {
+          "label": "New tests today",
+          "key": "totalTestResultsIncrease"
+        }
+      ],
+      "dailyHospitalization": [
+        {
+          "label": "Currently hospitalized",
+          "key": "hospitalizedCurrently"
+        },
+        {
+          "label": "Currently in ICU",
+          "key": "inIcuCurrently"
+        },
+        {
+          "label": "Currently on ventilator",
+          "key": "onVentilatorCurrently"
+        }
+      ]
+    },
+    "history": {
+      "dailyCases": [
+        {
+          "label": "Date",
+          "key": "date"
+        },
+        {
+          "label": "Cases (confirmed plus probable)",
+          "key": "positive"
+        },
+        {
+          "label": "New cases",
+          "key": "positiveIncrease"
+        }
+      ],
+      "dailyTest": [
+        {
+          "label": "Date",
+          "key": "date"
+        },
+        {
+          "label": "Negative PCR tests (people)",
+          "key": "negative"
+        },
+        {
+          "label": "Negative (increase)",
+          "key": "negativeIncrease"
+        },
+        {
+          "label": "Cases (confirmed plus probable)",
+          "key": "positive"
+        },
+        {
+          "label": "New cases",
+          "key": "positiveIncrease"
+        },
+        {
+          "label": "Total test results",
+          "key": "totalTestResults"
+        }
+      ],
+      "dailyHospitalization": [
+        {
+          "label": "Date",
+          "key": "date"
+        },
+        {
+          "label": "Currently hospitalized/Now hospitalized",
+          "key": "hospitalizedCurrently"
+        },
+        {
+          "label": "Currently in ICU/Now in ICU",
+          "key": "inIcuCurrently"
+        },
+        {
+          "label": "Currently on ventilator/Now on ventilator",
+          "key": "onVentilatorCurrently"
+        }
+      ]
+    }
+  }
+}
