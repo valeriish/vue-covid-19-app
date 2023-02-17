@@ -9,6 +9,7 @@ const VueApp = require(appPath).default
 
 module.exports = function(app) {
   app = require('./api/summary')(app)
+  app = require('./api/states')(app)
 
   app.get('*', async (req, res) => {
     const { app: vueApp, router } = await VueApp(req)

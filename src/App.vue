@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import GlobalHeader from './components/GlobalHeader.vue'
-import GlobalFooter from './components/GlobalFooter.vue'
+import GlobalHeader from '@/components/GlobalHeader.vue'
+import GlobalFooter from '@/components/GlobalFooter.vue'
 
 @Options({
   components: {

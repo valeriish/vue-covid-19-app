@@ -1,6 +1,7 @@
 :root {
   --text-color: #2c3e50;
   --link-color: #42b983;
+  --heading-background-color: #f2f2ff;
   --footer-background-color: #ccc;
   --table-thead-border-color: #9ca1a2;
   --table-tbody-border-color: #d2d6d7;

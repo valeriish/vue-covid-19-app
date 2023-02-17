@@ -1,5 +1,8 @@
-class DailyModel {
+const DataModel = require('./data')
+
+class DailyModel extends DataModel {
   constructor(config) {
+    super()
     this.endpoint = config.resources.api.hostname
       + config.resources.api.usDailyDataEndpoint
 
@@ -7,14 +10,10 @@ class DailyModel {
   }
 
   async load() {
-    await fetch(this.endpoint)
-      .then(response => response.json())
+    await this.fetch(this.endpoint)
       .then(data => {
         this.dailyData = data
       })
-      .catch(function (err) {
-        console.log("Unable to fetch -", err);
-      });
   }
 
   async getDailyData() {

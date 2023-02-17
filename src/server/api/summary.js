@@ -37,15 +37,15 @@ module.exports = function(app) {
 
     try {
       const dailyModel = new DailyModel(req.config)
-      const summary = await dailyModel.getDailyData()
+      const dailyData = await dailyModel.getDailyData()
 
-      if (summary.hasOwnProperty('error')) {
+      if (dailyData.hasOwnProperty('error')) {
         res.status(400).json({
-          message: summary['error']
+          message: dailyData['error']
         })
       }
 
-      res.status(200).json({ summary })
+      res.status(200).json({ dailyData })
     } catch (e) {
       res.status(500).json({
           message: 'Server error'

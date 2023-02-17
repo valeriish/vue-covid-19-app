@@ -14,7 +14,7 @@
 <script lang="ts">
 import { Options, prop, Vue } from 'vue-class-component'
 import type { DataCardAttributeType } from '@/types'
-import DataTableRow from './DataTableRow.vue';
+import DataTableRow from '@/components/DataTableRow.vue'
 
 @Options ({
   components: {

@@ -2,10 +2,13 @@
   "resources": {
     "api": {
       "hostname": "https://api.covidtracking.com",
-      "usDailyDataEndpoint": "/v1/us/daily.json"
+      "usCurrentDataEndpoint": "/v1/states/current.json",
+      "usDailyDataEndpoint": "/v1/us/daily.json",
+      "statesInfoEndpoint": "/v1/states/info.json"
     },
     "getDailyDataEndpoint": "/api/daily",
-    "getSummaryEndpoint": "/api/summary"
+    "getSummaryEndpoint": "/api/summary",
+    "getStatesDataEndpoint": "/api/states"
   },
   "schema": {
     "summary": {
@@ -48,7 +51,8 @@
       "dailyCases": [
         {
           "label": "Date",
-          "key": "date"
+          "key": "date",
+          "isDate": "true"
         },
         {
           "label": "Cases (confirmed plus probable)",
@@ -62,7 +66,8 @@
       "dailyTest": [
         {
           "label": "Date",
-          "key": "date"
+          "key": "date",
+          "isDate": "true"
         },
         {
           "label": "Negative PCR tests (people)",
@@ -88,7 +93,8 @@
       "dailyHospitalization": [
         {
           "label": "Date",
-          "key": "date"
+          "key": "date",
+          "isDate": "true"
         },
         {
           "label": "Currently hospitalized/Now hospitalized",
@@ -103,6 +109,108 @@
           "key": "onVentilatorCurrently"
         }
       ]
-    }
+    },
+    "statesInfo": {
+      "includeFields": [
+        "code",
+        "name",
+        "notes",
+        "twitter",
+        "covid19Site",
+        "covid19SiteSecondary",
+        "lastUpdateEt",
+        "positive",
+        "negativeTestsViral",
+        "hospitalizedCurrently",
+        "hospitalizedCumulative",
+        "inIcuCurrently",
+        "inIcuCumulative",
+        "onVentilatorCurrently",
+        "onVentilatorCumulative",
+        "recovered",
+        "death",
+        "totalTestResults"
+      ]
+    },
+    "statesSummary": [
+      {
+        "label": "Cases",
+        "key": "positive"
+      },
+      {
+        "label": "Tests",
+        "key": [
+          {
+            "label": "Negative",
+            "key": "negativeTestsViral"
+          },
+          {
+            "label": "Pending",
+            "key": "pending"
+          }
+        ]
+      },
+      {
+        "label": "Hospitalized",
+        "key": [
+          {
+            "label": "Currently",
+            "key": "hospitalizedCurrently"
+          },
+          {
+            "label": "Cumulative",
+            "key": "hospitalizedCumulative"
+          }
+        ]
+      },
+      {
+        "label": "In ICU",
+        "key": [
+          {
+            "label": "Currently",
+            "key": "inIcuCurrently"
+          },
+          {
+            "label": "Cumulative",
+            "key": "inIcuCumulative"
+          }
+        ]
+      },
+      {
+        "label": "On Ventilator",
+        "key": [
+          {
+            "label": "Currently",
+            "key": "onVentilatorCurrently"
+          },
+          {
+            "label": "Cumulative",
+            "key": "onVentilatorCumulative"
+          }
+        ]
+      },
+      {
+        "label": "Outcomes",
+        "key": [
+          {
+            "label": "Recovered",
+            "key": "recovered"
+          },
+          {
+            "label": "Deaths",
+            "key": "death"
+          }
+        ]
+      },
+      {
+        "label": "Total Test Results",
+        "key": [
+          {
+            "label": "Positive + Negative",
+            "key": "totalTestResults"
+          }
+        ]
+      }
+    ]
   }
 }

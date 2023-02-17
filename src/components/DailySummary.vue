@@ -27,7 +27,7 @@
 <script lang="ts">
 import { mixins, Options } from 'vue-class-component'
 import { WithFormatData, WithSummaryData } from '@/mixins'
-import DataCard from './DataCard.vue'
+import DataCard from '@/components/DataCard.vue'
 
 @Options({
   components: {

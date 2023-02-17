@@ -1,4 +1,4 @@
-import { DataCardAttributeType, DataCardType } from "./summary";
-import { ConfigType } from "./config";
+import { DataCardAttributeType, SchemaItemType } from "@/types/data";
+import { ConfigType } from "@/types/config";
 
-export { DataCardAttributeType, DataCardType, ConfigType }
+export { DataCardAttributeType, SchemaItemType, ConfigType }

@@ -35,11 +35,11 @@ export default class DataCard extends mixins(WithFormatData).with(class {
 
 <style scoped>
 .card {
-  border: 2px solid #d2d6d7;
+  border: 2px solid var(--table-tbody-border-color);
 }
 .header {
   align-items: center;
-  background: #f2f2ff;
+  background: var(--heading-background-color);
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;

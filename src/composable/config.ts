@@ -24,6 +24,8 @@ export const useConfig = createGlobalState(
           resources: appConfig.resources || null,
           schema: appConfig.schema || null
         }
+      } else {
+        throw new Error('Config is not accessabale')
       }
     }
 

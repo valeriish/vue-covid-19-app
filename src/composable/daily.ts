@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import { createGlobalState } from '@vueuse/core'
 
 import { useConfig } from '@/composable'
+import { getMatchedData } from '@/helper'
 import type { DataCardAttributeType } from '@/types'
 
 /**
@@ -10,7 +11,6 @@ import type { DataCardAttributeType } from '@/types'
  */
 export const useDailyData = createGlobalState(
   () => {
-    const data = ref(null)
     const error: Ref<string | null> = ref(null)
     const casesData: Ref<Array<DataCardAttributeType[]>> = ref([])
     const testsData: Ref<Array<DataCardAttributeType[]>> = ref([])
@@ -22,62 +22,22 @@ export const useDailyData = createGlobalState(
       fetch(resources.getDailyDataEndpoint)
         .then((res) => res.json())
         .then((json) => {
-          data.value = json
-          if (!json.summary || Object.keys(json.summary).length === 0) {
+          if (!json.dailyData || json.dailyData.length === 0) {
             throw new Error("Couldn't load daily data")
           }
           if (schema.history) {
-            for (const dailyReport of json.summary) {
-              if (schema.history.dailyCases
-                && schema.history.dailyCases.length
-              ) {
-                const dailyData = []
-                for (const attribute of schema.history.dailyCases) {
-                  const attr:DataCardAttributeType = {
-                    label: attribute.label,
-                    value: dailyReport[attribute.key],
-                    isNumber: attribute.key !== 'date',
-                    isDate: attribute.key === 'date'
-                  }
-                  dailyData.push(attr)
-                }
+            for (const dailyReport of json.dailyData) {
+              casesData.value.push(
+                getMatchedData(dailyReport, schema.history.dailyCases)
+              )
 
-                casesData.value.push(dailyData)
-              }
+              testsData.value.push(
+                getMatchedData(dailyReport, schema.history.dailyTest)
+              )
 
-              if (schema.history.dailyTest
-                && schema.history.dailyTest.length
-              ) {
-                const dailyData = []
-                for (const attribute of schema.history.dailyTest) {
-                  const attr:DataCardAttributeType = {
-                    label: attribute.label,
-                    value: dailyReport[attribute.key],
-                    isNumber: attribute.key !== 'date',
-                    isDate: attribute.key === 'date'
-                  }
-                  dailyData.push(attr)
-                }
-
-                testsData.value.push(dailyData)
-              }
-
-              if (schema.history.dailyHospitalization
-                && schema.history.dailyHospitalization.length
-              ) {
-                const dailyData = []
-                for (const attribute of schema.history.dailyHospitalization) {
-                  const attr:DataCardAttributeType = {
-                    label: attribute.label,
-                    value: dailyReport[attribute.key],
-                    isNumber: attribute.key !== 'date',
-                    isDate: attribute.key === 'date'
-                  }
-                  dailyData.push(attr)
-                }
-
-                hospitalizationData.value.push(dailyData)
-              }
+              hospitalizationData.value.push(
+                getMatchedData(dailyReport, schema.history.dailyHospitalization)
+              )
             }
           }
         })
@@ -85,7 +45,6 @@ export const useDailyData = createGlobalState(
     }
 
     return {
-      data,
       casesData,
       testsData,
       hospitalizationData,
