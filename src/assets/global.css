@@ -38,6 +38,7 @@ h5 {
 
 header,
 main {
+  box-sizing: border-box;
   margin: 0 auto;
   max-width: 1200px;
   padding: 15px;
@@ -68,12 +69,12 @@ header > a > span {
   font-size: 18px;
 }
 
-header ul {
+ul.inline-block {
   margin: 10px 0;
   padding: 0
 }
 
-header li {
+ul.inline-block li {
   list-style-type: none;
   padding: 0;
   display: inline-block;
@@ -89,6 +90,14 @@ footer {
   margin-top: 40px;
   min-height: 100px;
   padding: 20px 15px;
+}
+
+@media (max-width: 1023px) {
+  table {
+    display: block;
+    overflow-x: scroll;
+    max-width: 100%;
+  }
 }
 
 @media (min-width: 768px) {

@@ -1,6 +1,9 @@
 <template>
   <table v-if="data.length">
-    <colgroup v-for="(item, index) of colgroup()" :key="index">
+    <colgroup
+      v-for="(item, index) of colgroup()"
+      :key="index"
+      :class="index + 1 === colgroup().length ? 'last' : ''">
       <col :span="item.childItems"/>
     </colgroup>
     <thead>
@@ -51,8 +54,12 @@ table {
   width: 100%;
 }
 
-colgroup:not(:last-child) {
+colgroup {
   border-right: 1px solid var(--table-thead-border-color);
+}
+
+colgroup.last {
+  border-right: none;
 }
 
 thead {

@@ -5,3 +5,9 @@ export interface DataCardAttributeType {
   isDate?: boolean,
   childItems?: number,
 }
+
+export interface Link {
+  label: string,
+  path: string
+}
+

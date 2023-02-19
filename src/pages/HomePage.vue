@@ -8,7 +8,21 @@
         ...state,
         title: state.name,
         info: state.notes,
-        
+        lastUpdate: `State's dataset was last updated ${state.lastUpdateEt} ET`,
+        links: [
+          {
+            path: state.twitter ? `https://twitter.com/${state.twitter}` : '',
+            label: 'Official Twitter'
+          },
+          {
+            path: state.covid19Site,
+            label: 'Best Current Data Source'
+          },
+          {
+            path: state.covid19SiteSecondary,
+            label: 'Secondary Data Source'
+          }
+        ]
       }"
       :key="index"/>
   </div>

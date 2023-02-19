@@ -4,6 +4,12 @@
       <h3>{{ title }}</h3>
     </div>
     <DataTable :data="[summaryData]"/>
+    <div v-if="lastUpdate" class="last-update">{{ lastUpdate }}</div>
+    <ul v-if="links && links.length" class="inline-block">
+      <li v-for="(link, index) of links.filter(link => link.path)" :key="index">
+        <a :href="link.path">{{ link.label }}</a>
+      </li>
+    </ul>
     <div v-markdown="info" class="info"/>
   </article>
 </template>
@@ -11,7 +17,7 @@
 <script lang="ts">
 import { Options, prop, Vue } from 'vue-class-component'
 import DataTable from '@/components/DataTable.vue'
-import type { DataCardAttributeType } from '@/types'
+import type { DataCardAttributeType, Link } from '@/types'
 
 @Options ({
   components: {
@@ -21,6 +27,8 @@ import type { DataCardAttributeType } from '@/types'
 export default class DataCardFull extends Vue.with(class {
   title = prop<string>({ default: ''})
   info = prop<string>({ default: ''})
+  lastUpdate = prop<string>({ default: ''})
+  links = prop<Link[]>({ default: []})
   summaryData = prop<Array<DataCardAttributeType[]>>({ default: [] })
 }) {
 }
@@ -29,9 +37,14 @@ export default class DataCardFull extends Vue.with(class {
 <style scoped>
 .header,
 .info,
+.last-update,
 :deep(th),
 :deep(td) {
   text-align: left;
+}
+
+.last-update {
+  padding-top: 15px;
 }
 
 :deep(th) {

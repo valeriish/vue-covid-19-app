@@ -12,7 +12,7 @@
     <nav>
       <ul
         v-if="links.length"
-        class="topnav"
+        class="topnav inline-block"
       >
         <li
           v-for="(link, index) in links"
@@ -29,11 +29,7 @@
 
 <script lang="ts">
 import { prop, Vue } from 'vue-class-component'
-
-interface Link {
-  label: string,
-  path: string
-}
+import type { Link } from '@/types'
 
 export default class TopMenu
   extends Vue.with(class {
