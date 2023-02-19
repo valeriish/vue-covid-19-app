@@ -26,6 +26,6 @@ export class WithFormatData extends Vue {
    * Format Number
    */
   formatNumber(value: any): string {
-    return Number.isNaN(value) ? value : Number(value).toLocaleString('en-US')
+    return !value || Number.isNaN(value) ? 'N/A' : Number(value).toLocaleString('en-US')
   }
 }

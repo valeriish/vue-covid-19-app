@@ -28,8 +28,22 @@ export default class DataCardFull extends Vue.with(class {
 
 <style scoped>
 .header,
-.info {
+.info,
+:deep(th),
+:deep(td) {
   text-align: left;
+}
+
+:deep(th) {
+  padding-top: 0;
+}
+
+:deep(thead tr:nth-child(2) th) {
+  font-size: 12px;
+}
+
+:deep(thead tr:nth-child(2) th:first-child) {
+  visibility: hidden;
 }
 
 @media (min-width: 1024px) {

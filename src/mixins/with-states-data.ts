@@ -1,35 +1,56 @@
-import { computed } from 'vue'
+import { computed, onErrorCaptured } from 'vue'
 import { Vue, setup } from 'vue-class-component'
 import { useConfig, useStates } from '@/composable'
 import { getMatchedData } from '@/helper'
+import type { Ref } from 'vue'
+import type { UnwrapSetupValue } from 'vue-class-component'
+import type { SchemaType, ConfigType, StateInfoType } from '@/types'
 
 /**
  * Add States Info to Component
  */
 export class WithStatesInfo extends Vue {
-  ctx = setup(() => {
+  ctx: UnwrapSetupValue<{
+    statesData: Ref<StateInfoType[]>,
+    schema: SchemaType | null,
+    error: any
+  }> = setup(() => {
     const {
       statesData,
       error
     } = useStates()
+    const config: Ref<ConfigType> = useConfig()
+    const schema: SchemaType | null  = config.value.schema
 
-    const config = useConfig()
-    const { schema } = config.value
+    onErrorCaptured((error: Error) => {
+      console.log('Something went wrong: ' + error.toString())
 
-    let statesInfo = [] as any
-
-    if (schema && schema.statesSummary) {
-      statesInfo = computed(() => {
-        statesData.value.forEach((state, index) => {
-          statesData.value[index].summaryData = getMatchedData(state, schema.statesSummary)
-        })
-        return statesData.value
-      })
-    }
+      return false
+    })
 
     return {
-      statesInfo,
+      statesData,
+      schema,
       error
     }
   })
+
+  /**
+   * Get State Current Data
+   */
+  statesData(): StateInfoType[] {
+    const statesData: StateInfoType[] = []
+    if (this.ctx.schema && this.ctx.schema.statesInfo) {
+      for (const stateData of this.ctx.statesData) {
+        statesData.push({
+          ...stateData,
+          ...{
+            summaryData: getMatchedData(stateData, this.ctx.schema.statesInfo.summary)
+          } as StateInfoType
+        })
+      }
+    }
+
+    return statesData
+  }
 }

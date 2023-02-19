@@ -3,7 +3,6 @@ import type { Ref } from 'vue'
 import { createGlobalState } from '@vueuse/core'
 
 import { useConfig } from '@/composable'
-import { getMatchedData } from '@/helper'
 import type { DataCardAttributeType } from '@/types'
 
 /**
@@ -12,9 +11,7 @@ import type { DataCardAttributeType } from '@/types'
 export const useDailyData = createGlobalState(
   () => {
     const error: Ref<string | null> = ref(null)
-    const casesData: Ref<Array<DataCardAttributeType[]>> = ref([])
-    const testsData: Ref<Array<DataCardAttributeType[]>> = ref([])
-    const hospitalizationData: Ref<Array<DataCardAttributeType[]>> = ref([])
+    const dailyData: Ref<DataCardAttributeType[][]> = ref([])
 
     const config = useConfig()
     const { resources, schema } = config.value
@@ -25,19 +22,11 @@ export const useDailyData = createGlobalState(
           if (!json.dailyData || json.dailyData.length === 0) {
             throw new Error("Couldn't load daily data")
           }
-          if (schema.history) {
-            for (const dailyReport of json.dailyData) {
-              casesData.value.push(
-                getMatchedData(dailyReport, schema.history.dailyCases)
-              )
-
-              testsData.value.push(
-                getMatchedData(dailyReport, schema.history.dailyTest)
-              )
-
-              hospitalizationData.value.push(
-                getMatchedData(dailyReport, schema.history.dailyHospitalization)
-              )
+          if (schema.history && schema.history.includeFields) {
+            const includeKeys = new Set(schema.history.includeFields)
+            for (const dailyInfo of json.dailyData) {
+              const filteredPairs = Object.entries(dailyInfo).filter(([ key ]) => includeKeys.has(key))
+              dailyData.value.push(Object.fromEntries(filteredPairs) as any)
             }
           }
         })
@@ -45,9 +34,7 @@ export const useDailyData = createGlobalState(
     }
 
     return {
-      casesData,
-      testsData,
-      hospitalizationData,
+      dailyData,
       error
     }
   }

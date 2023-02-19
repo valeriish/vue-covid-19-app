@@ -48,6 +48,17 @@
       ]
     },
     "history": {
+      "includeFields": [
+        "date",
+        "positive",
+        "positiveIncrease",
+        "negative",
+        "negativeIncrease",
+        "totalTestResults",
+        "hospitalizedCurrently",
+        "inIcuCurrently",
+        "onVentilatorCurrently"
+      ],
       "dailyCases": [
         {
           "label": "Date",
@@ -130,87 +141,92 @@
         "recovered",
         "death",
         "totalTestResults"
+      ],
+      "summary": [
+        {
+          "label": "Cases",
+          "key": [
+            {
+              "label": "Cases",
+              "key": "positive"
+            }
+          ]
+        },
+        {
+          "label": "Tests",
+          "key": [
+            {
+              "label": "Negative",
+              "key": "negativeTestsViral"
+            },
+            {
+              "label": "Pending",
+              "key": "pending"
+            }
+          ]
+        },
+        {
+          "label": "Hospitalized",
+          "key": [
+            {
+              "label": "Currently",
+              "key": "hospitalizedCurrently"
+            },
+            {
+              "label": "Cumulative",
+              "key": "hospitalizedCumulative"
+            }
+          ]
+        },
+        {
+          "label": "In ICU",
+          "key": [
+            {
+              "label": "Currently",
+              "key": "inIcuCurrently"
+            },
+            {
+              "label": "Cumulative",
+              "key": "inIcuCumulative"
+            }
+          ]
+        },
+        {
+          "label": "On Ventilator",
+          "key": [
+            {
+              "label": "Currently",
+              "key": "onVentilatorCurrently"
+            },
+            {
+              "label": "Cumulative",
+              "key": "onVentilatorCumulative"
+            }
+          ]
+        },
+        {
+          "label": "Outcomes",
+          "key": [
+            {
+              "label": "Recovered",
+              "key": "recovered"
+            },
+            {
+              "label": "Deaths",
+              "key": "death"
+            }
+          ]
+        },
+        {
+          "label": "Total Test Results",
+          "key": [
+            {
+              "label": "Positive + Negative",
+              "key": "totalTestResults"
+            }
+          ]
+        }
       ]
-    },
-    "statesSummary": [
-      {
-        "label": "Cases",
-        "key": "positive"
-      },
-      {
-        "label": "Tests",
-        "key": [
-          {
-            "label": "Negative",
-            "key": "negativeTestsViral"
-          },
-          {
-            "label": "Pending",
-            "key": "pending"
-          }
-        ]
-      },
-      {
-        "label": "Hospitalized",
-        "key": [
-          {
-            "label": "Currently",
-            "key": "hospitalizedCurrently"
-          },
-          {
-            "label": "Cumulative",
-            "key": "hospitalizedCumulative"
-          }
-        ]
-      },
-      {
-        "label": "In ICU",
-        "key": [
-          {
-            "label": "Currently",
-            "key": "inIcuCurrently"
-          },
-          {
-            "label": "Cumulative",
-            "key": "inIcuCumulative"
-          }
-        ]
-      },
-      {
-        "label": "On Ventilator",
-        "key": [
-          {
-            "label": "Currently",
-            "key": "onVentilatorCurrently"
-          },
-          {
-            "label": "Cumulative",
-            "key": "onVentilatorCumulative"
-          }
-        ]
-      },
-      {
-        "label": "Outcomes",
-        "key": [
-          {
-            "label": "Recovered",
-            "key": "recovered"
-          },
-          {
-            "label": "Deaths",
-            "key": "death"
-          }
-        ]
-      },
-      {
-        "label": "Total Test Results",
-        "key": [
-          {
-            "label": "Positive + Negative",
-            "key": "totalTestResults"
-          }
-        ]
-      }
-    ]
+    }
   }
 }

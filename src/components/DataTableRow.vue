@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td v-for="(attribute, index) in row" :key="index">
+    <td v-for="(attribute, index) in row.filter(item => !item.childItems)" :key="index">
       {{
       attribute.isNumber
         ? formatNumber(attribute.value)

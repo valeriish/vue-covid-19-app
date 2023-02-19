@@ -3,11 +3,5 @@ export interface DataCardAttributeType {
   value: string,
   isNumber?: boolean,
   isDate?: boolean,
-}
-
-export interface SchemaItemType {
-  label: string,
-  key: SchemaItemType[] | string,
-  isNumber?: boolean,
-  isDate?: boolean,
+  childItems?: number,
 }

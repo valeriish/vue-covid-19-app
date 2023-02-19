@@ -20,5 +20,9 @@ export default createRouter({
       path: '/hospitalization',
       component: () => import('@/pages/NationalHospitalization.vue'),
     },
+    {
+      path: "/:pathMatch(.*)*",
+      component: () => import("@/pages/NotFound.vue"),
+    },
   ],
 })

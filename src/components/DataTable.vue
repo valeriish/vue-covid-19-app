@@ -1,8 +1,23 @@
 <template>
   <table v-if="data.length">
+    <colgroup v-for="(item, index) of colgroup()" :key="index">
+      <col :span="item.childItems"/>
+    </colgroup>
     <thead>
       <tr>
-        <th v-for="(item, index) of data[0]" :key="index">{{ item.label }}</th>
+        <th
+          v-for="(item, index) of colgroup()"
+          :key="index"
+          :colspan="item.childItems">
+          {{ item.label }}
+        </th>
+      </tr>
+      <tr>
+        <th
+          v-for="(item, index) of data[0].filter(item => !item.childItems)"
+          :key="index">
+          {{ item.label }}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +39,9 @@ import DataTableRow from '@/components/DataTableRow.vue'
 export default class DataTable extends Vue.with(class {
   data = prop<Array<DataCardAttributeType[]>>({ default: [] })
 }) {
+  colgroup() {
+    return this.data[0].filter(item => item.childItems)
+  }
 }
 </script>
 
@@ -31,6 +49,10 @@ export default class DataTable extends Vue.with(class {
 table {
   border-collapse: collapse;
   width: 100%;
+}
+
+colgroup:not(:last-child) {
+  border-right: 1px solid var(--table-thead-border-color);
 }
 
 thead {

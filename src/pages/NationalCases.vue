@@ -1,6 +1,6 @@
 <template>
   <h1 class="title">Case History</h1>
-  <DataTable v-if="!ctx.error" :data="ctx.casesData"/>
+  <DataTable v-if="!ctx.error" :data="casesData()"/>
 </template>
 
 <script lang="ts">

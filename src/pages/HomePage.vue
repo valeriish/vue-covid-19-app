@@ -3,7 +3,7 @@
   <div class="wrapper">
     <h2>Data By State</h2>
     <DataCardFull
-      v-for="(state, index) of ctx.statesInfo"
+      v-for="(state, index) of statesData()"
       v-bind="{
         ...state,
         title: state.name,
@@ -34,9 +34,10 @@ export default class HomePage extends mixins(WithStatesInfo) {
   h2 {
     border-bottom: 1px solid var(--table-tbody-border-color);
     margin-bottom: 2rem;
-    margin-top: 0;
+    margin-top: 30px;
     line-height: 1;
     padding-bottom: 1.5rem;
     padding-top: 0.25rem;
+    text-align: left;
   }
 </style>
