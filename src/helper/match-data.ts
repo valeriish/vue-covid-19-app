@@ -7,8 +7,8 @@ function getAttribute (
   return {
     label: schemaItem.label as string,
     value: data[schemaItem.key as string],
-    isNumber: schemaItem.isNumber !== false,
-    isDate: schemaItem.isDate === true,
+    isNumber: schemaItem.isDate !== 'true' && schemaItem.isNumber !== 'false',
+    isDate: schemaItem.isDate === 'true',
   }
 }
 

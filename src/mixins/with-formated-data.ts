@@ -18,7 +18,7 @@ export class WithFormatData extends Vue {
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     })
   }
 

@@ -2,8 +2,8 @@
 export interface SchemaItemType {
   label?: string,
   key?: SchemaItemType[] | string,
-  isNumber?: boolean,
-  isDate?: boolean,
+  isNumber?: string,
+  isDate?: string,
   
 }
 
@@ -14,7 +14,7 @@ export interface SchemaType {
   }
 }
 
-interface ConfigField {
+export interface ConfigField {
   [key: string]: any
 }
 

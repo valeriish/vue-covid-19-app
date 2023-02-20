@@ -21,6 +21,11 @@ export default createRouter({
       component: () => import('@/pages/NationalHospitalization.vue'),
     },
     {
+      path: '/state/:state',
+      component: () => import('@/pages/StateHistory.vue'),
+      props: true,
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("@/pages/NotFound.vue"),
     },

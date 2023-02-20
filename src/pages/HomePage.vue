@@ -21,7 +21,11 @@
           {
             path: state.covid19SiteSecondary,
             label: 'Secondary Data Source'
-          }
+          },
+          {
+            path: `/state/${(state.state as string).toLowerCase()}`,
+            label: 'Historical Data'
+          },
         ]
       }"
       :key="index"/>
@@ -32,7 +36,7 @@
 import { Options, mixins } from 'vue-class-component'
 import DailySummary from '@/components/DailySummary.vue'
 import DataCardFull from '@/components/DataCardFull.vue'
-import { WithStatesInfo } from '@/mixins/with-states-data';
+import { WithStatesInfo } from '@/mixins/with-states-data'
 
 @Options({
   components: {

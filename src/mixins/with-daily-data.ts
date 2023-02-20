@@ -17,7 +17,7 @@ export class WithDailyData extends Vue {
   }> = setup(() => {
     const {
       dailyData,
-      error
+      error,
     } = useDailyData()
 
     const config: Ref<ConfigType> = useConfig()
@@ -32,7 +32,7 @@ export class WithDailyData extends Vue {
     return {
       dailyData,
       schema,
-      error
+      error,
     }
   })
 

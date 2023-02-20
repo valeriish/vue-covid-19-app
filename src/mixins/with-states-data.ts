@@ -1,4 +1,4 @@
-import { computed, onErrorCaptured } from 'vue'
+import { onErrorCaptured } from 'vue'
 import { Vue, setup } from 'vue-class-component'
 import { useConfig, useStates } from '@/composable'
 import { getMatchedData } from '@/helper'
@@ -13,11 +13,11 @@ export class WithStatesInfo extends Vue {
   ctx: UnwrapSetupValue<{
     statesData: Ref<StateInfoType[]>,
     schema: SchemaType | null,
-    error: any
+    error: any,
   }> = setup(() => {
     const {
       statesData,
-      error
+      error,
     } = useStates()
     const config: Ref<ConfigType> = useConfig()
     const schema: SchemaType | null  = config.value.schema
@@ -31,7 +31,7 @@ export class WithStatesInfo extends Vue {
     return {
       statesData,
       schema,
-      error
+      error,
     }
   })
 
@@ -45,7 +45,7 @@ export class WithStatesInfo extends Vue {
         statesData.push({
           ...stateData,
           ...{
-            summaryData: getMatchedData(stateData, this.ctx.schema.statesInfo.summary)
+            summaryData: getMatchedData(stateData, this.ctx.schema.statesInfo.data)
           } as StateInfoType
         })
       }

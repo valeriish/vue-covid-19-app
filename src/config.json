@@ -4,11 +4,14 @@
       "hostname": "https://api.covidtracking.com",
       "usCurrentDataEndpoint": "/v1/states/current.json",
       "usDailyDataEndpoint": "/v1/us/daily.json",
-      "statesInfoEndpoint": "/v1/states/info.json"
+      "statesInfoEndpoint": "/v1/states/info.json",
+      "stateHistoricalDataEndpoint": "/v1/states/{state}/daily.json",
+      "stateInfoEndpoint": "/v1/states/{state}/info.json"
     },
     "getDailyDataEndpoint": "/api/daily",
     "getSummaryEndpoint": "/api/summary",
-    "getStatesDataEndpoint": "/api/states"
+    "getStatesDataEndpoint": "/api/states",
+    "getStateDataEndpoint": "/api/state/{state}"
   },
   "schema": {
     "summary": {
@@ -123,7 +126,7 @@
     },
     "statesInfo": {
       "includeFields": [
-        "code",
+        "state",
         "name",
         "notes",
         "twitter",
@@ -142,7 +145,7 @@
         "death",
         "totalTestResults"
       ],
-      "summary": [
+      "data": [
         {
           "label": "Cases",
           "key": [
@@ -225,6 +228,39 @@
               "key": "totalTestResults"
             }
           ]
+        }
+      ]
+    },
+    "stateHistory": {
+      "data": [
+        {
+          "label": "Date",
+          "key": "date",
+          "isDate": "true"
+        },
+        {
+          "label": "Cases",
+          "key": "positive"
+        },
+        {
+          "label": "Negative Tests",
+          "key": "negativeTestsViral"
+        },
+        {
+          "label": "Hospitalized",
+          "key": "hospitalizedCurrently"
+        },
+        {
+          "label": "In ICU",
+          "key": "inIcuCurrently"
+        },
+        {
+          "label": "On Ventilator",
+          "key": "onVentilatorCurrently"
+        },
+        {
+          "label": "Total Test Results",
+          "key": "totalTestResults"
         }
       ]
     }
