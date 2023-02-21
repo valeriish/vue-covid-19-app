@@ -18,9 +18,7 @@
           v-for="(link, index) in links"
           :key="index"
         >
-          <router-link :to="link.path">
-            {{ link.label }}
-          </router-link>
+          <NavigationLink v-bind="{ ...link }" />
         </li>
       </ul>
     </nav>
@@ -28,9 +26,15 @@
 </template>
 
 <script lang="ts">
-import { prop, Vue } from 'vue-class-component'
+import { Options, prop, Vue } from 'vue-class-component'
+import NavigationLink from '@/components/NavigationLink.vue'
 import type { Link } from '@/types'
 
+@Options ({
+  components: {
+    NavigationLink,
+  }
+})
 export default class TopMenu
   extends Vue.with(class {
     links = prop<Link[]>({ default: []})

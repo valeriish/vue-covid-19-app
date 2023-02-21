@@ -7,7 +7,7 @@
     <div v-if="lastUpdate" class="last-update">{{ lastUpdate }}</div>
     <ul v-if="links && links.length" class="inline-block">
       <li v-for="(link, index) of links.filter(link => link.path)" :key="index">
-        <a :href="link.path">{{ link.label }}</a>
+        <NavigationLink v-bind="{ ...link }" />
       </li>
     </ul>
     <div v-markdown="info" class="info"/>
@@ -17,11 +17,13 @@
 <script lang="ts">
 import { Options, prop, Vue } from 'vue-class-component'
 import DataTable from '@/components/DataTable.vue'
+import NavigationLink from '@/components/NavigationLink.vue'
 import type { DataCardAttributeType, Link } from '@/types'
 
 @Options ({
   components: {
     DataTable,
+    NavigationLink,
   }
 })
 export default class DataCardFull extends Vue.with(class {
