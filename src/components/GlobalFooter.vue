@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div>&copy;Copyright 2023</div>
+    <div>&copy;Copyright {{ new Date().getFullYear() }}</div>
   </footer>
 </template>
 

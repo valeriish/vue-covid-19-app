@@ -1,7 +1,6 @@
 const path = require('path')
 const express = require('express')
 
-const routes = require('./routes')
 const config = require('../config.json')
 
 class App {

@@ -12,7 +12,7 @@ module.exports = function(app) {
       const dailyModel = new DailyModel(req.config)
       const summary = await dailyModel.getSummary()
 
-      if (summary.hasOwnProperty('error')) {
+      if (Object.prototype.hasOwnProperty.call(summary, 'error')) {
         res.status(400).json({
           message: summary['error']
         })
@@ -39,7 +39,7 @@ module.exports = function(app) {
       const dailyModel = new DailyModel(req.config)
       const dailyData = await dailyModel.getDailyData()
 
-      if (dailyData.hasOwnProperty('error')) {
+      if (Object.prototype.hasOwnProperty.call(dailyData, 'error')) {
         res.status(400).json({
           message: dailyData['error']
         })
