@@ -63,7 +63,7 @@ class StatesDataModel extends DataModel {
 
     state = state.toLowerCase()
 
-    if (!this.stateData.hasOwnProperty(state) || !this.stateData[state]) {
+    if (!Object.prototype.hasOwnProperty.call(this.stateData, state) || !this.stateData[state]) {
       await this.loadStateInfo(state)
     }
 
@@ -77,7 +77,7 @@ class StatesDataModel extends DataModel {
 
     state = state.toLowerCase()
 
-    if (!this.stateInfo.hasOwnProperty(state) || !this.stateInfo[state]) {
+    if (!Object.prototype.hasOwnProperty.call(this.stateInfo, state) || !this.stateInfo[state]) {
       await this.loadStateInfo(state)
     }
 

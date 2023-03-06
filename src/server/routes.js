@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { renderToString } = require("@vue/server-renderer")
-const { Router } = require('express')
+const { renderToString } = require('@vue/server-renderer')
 
 const manifest = require('../../dist/server/ssr-manifest.json')
 const appPath = path.join(__dirname, '../../dist', 'server', manifest['app.js'])

@@ -12,7 +12,7 @@ module.exports = function(app) {
       const statesModel = new StatesDataModel(req.config)
       const statesInfo = await statesModel.getStatesInfo()
 
-      if (statesInfo.hasOwnProperty('error')) {
+      if (Object.prototype.hasOwnProperty.call(statesInfo, 'error')) {
         res.status(400).json({
           message: statesInfo['error']
         })
@@ -40,7 +40,7 @@ module.exports = function(app) {
       const stateinfo = await statesModel.getStateInfo(req.params.state)
       const historicalData = await statesModel.getHistoricalData(req.params.state)
 
-      if (historicalData.hasOwnProperty('error')) {
+      if (Object.prototype.hasOwnProperty.call(historicalData, 'error')) {
         res.status(400).json({
           message: historicalData['error']
         })
