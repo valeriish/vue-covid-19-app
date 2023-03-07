@@ -3,6 +3,7 @@
     <router-link to="/">
       <img
         alt="Vue logo"
+        class="logo"
         src="../assets/logo.png"
       >
       <span>
@@ -26,12 +27,14 @@
 </template>
 
 <script lang="ts">
+import { RouterLink } from 'vue-router'
 import { Options, prop, Vue } from 'vue-class-component'
 import NavigationLink from '@/components/NavigationLink.vue'
 import type { Link } from '@/types'
 
 @Options ({
   components: {
+    RouterLink,
     NavigationLink,
   }
 })

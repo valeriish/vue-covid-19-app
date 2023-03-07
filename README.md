@@ -16,6 +16,10 @@ yarn build:ssr
 ```
 yarn lint
 ```
+### Test
+```
+yarn test
+```
 ## Screenshots
 ### Homepage
 ![image](https://user-images.githubusercontent.com/27428461/220077228-6c833669-101c-4606-9626-bbf396a28a43.png)
