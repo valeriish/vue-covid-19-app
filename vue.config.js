@@ -1,4 +1,3 @@
-const { defineConfig } = require('@vue/cli-service')
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const nodeExternals = require("webpack-node-externals");
 const webpack = require('webpack');
