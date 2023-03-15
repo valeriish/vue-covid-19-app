@@ -5,8 +5,14 @@
   <a v-else :href="path">{{ label }}</a>
 </template>
 <script lang="ts">
-import { prop, Vue } from 'vue-class-component'
+import { RouterLink } from 'vue-router'
+import { Options, prop, Vue } from 'vue-class-component'
 
+@Options ({
+  components: {
+    RouterLink
+  }
+})
 export default class NavigationLink
   extends Vue.with(class {
     path = prop<string>({ default: '' })
