@@ -13,8 +13,9 @@ module.exports = function(app) {
   app.get('*', async (req, res) => {
     const { app: vueApp, router } = await VueApp(req)
   
-    await router.push(req.url);
-    await router.isReady();
+    await router.push(req.url)
+    await router.isReady()
+    const { title } = router.getMetaData()
   
     let appContent = await renderToString(vueApp)
   
@@ -29,6 +30,7 @@ module.exports = function(app) {
   
         html = html
           .toString()
+          .replace(/<title>(.*)<\/title>/g, `<title>${title}</title>`)
           .replace('<div id="app"></div>', `${appContent}`)
         res.setHeader('Content-Type', 'text/html')
         res.send(html)

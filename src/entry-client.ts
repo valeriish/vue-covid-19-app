@@ -1,7 +1,7 @@
 import buildApp from './main'
 import scripts from './scripts'
 
-const { app, router } = buildApp();
+const { app, router } = buildApp()
 
 router.isReady()
   .then(() => {

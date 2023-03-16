@@ -3,7 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import { config, markdown } from '@/plugins'
 
-const isSSR = typeof window === 'undefined';
+const isSSR = typeof window === 'undefined'
 
 export default function buildApp() {
   const app = (isSSR ? createSSRApp(App) : createApp(App))
