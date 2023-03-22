@@ -24,7 +24,7 @@ module.exports = function(app) {
           message: 'Server error'
       })
 
-      throw Error(e)
+      console.error(e)
     }
   })
 
@@ -52,7 +52,7 @@ module.exports = function(app) {
           message: 'Server error'
       })
 
-      throw Error(e)
+      console.error(e)
     }
   });
 
