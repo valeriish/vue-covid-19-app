@@ -17,8 +17,6 @@ export default function(
 
   if (title) {
     if (isSSR) {
-      //const ssrContext = useSSRContext() as any
-      //ssrContext.req.title = title
       router.meta.title = title
     } else {
       document.title = title
