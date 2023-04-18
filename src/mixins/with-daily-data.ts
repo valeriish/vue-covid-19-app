@@ -1,4 +1,4 @@
-import { onErrorCaptured } from 'vue'
+import { onErrorCaptured, onServerPrefetch, useSSRContext } from 'vue'
 import { Vue, setup } from 'vue-class-component'
 import { useConfig, useDailyData } from '@/composable'
 import { getMatchedData } from '@/helper'
@@ -18,6 +18,8 @@ export class WithDailyData extends Vue {
     const {
       dailyData,
       error,
+      load,
+      setData,
     } = useDailyData()
 
     const config: Ref<ConfigType> = useConfig()
@@ -28,6 +30,17 @@ export class WithDailyData extends Vue {
 
       return false
     })
+
+    onServerPrefetch(async () => {
+      const { load } = useDailyData()
+      const ctx = useSSRContext()
+      const data = await load()
+      setData(data)
+      if (ctx) {
+        ctx.state.push({ daily: data })
+      }
+    })
+    
 
     return {
       dailyData,

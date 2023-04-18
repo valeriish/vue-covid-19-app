@@ -1,41 +1,39 @@
 import { ref } from 'vue'
 import type { Ref } from 'vue'
-import { createGlobalState } from '@vueuse/core'
 
 import { useConfig } from '@/composable'
+import { fetchData } from '@/helper'
 import type { DataCardAttributeType } from '@/types'
+
+const dailyData: Ref<DataCardAttributeType[][]> = ref([])
 
 /**
  * Store and return Daily History Data
  */
-export const useDailyData = createGlobalState(
-  () => {
-    const error: Ref<string | null> = ref(null)
-    const dailyData: Ref<DataCardAttributeType[][]> = ref([])
+export const useDailyData = () => {
+  const config = useConfig()
+  const error: Ref<string | null> = ref(null)
 
-    const config = useConfig()
-    const { resources, schema } = config.value
-    if (resources && schema && resources.getDailyDataEndpoint) {
-      fetch(resources.getDailyDataEndpoint)
-        .then((res) => res.json())
-        .then((json) => {
-          if (!json.dailyData || json.dailyData.length === 0) {
-            throw new Error("Couldn't load daily data")
-          }
-          if (schema.history && schema.history.includeFields) {
-            const includeKeys = new Set(schema.history.includeFields)
-            for (const dailyInfo of json.dailyData) {
-              const filteredPairs = Object.entries(dailyInfo).filter(([ key ]) => includeKeys.has(key))
-              dailyData.value.push(Object.fromEntries(filteredPairs) as any)
-            }
-          }
-        })
-        .catch((err) => (error.value = err))
-    }
+  const load = async () => {
+    const data = await fetchData(config)
 
-    return {
-      dailyData,
-      error
-    }
+    return data
   }
-)
+  
+  function setData(data: DataCardAttributeType[][]): void {
+    dailyData.value = data
+  }
+
+  if (dailyData.value.length === 0) {
+    load().then(data => {
+      setData(data)
+    })
+  }
+
+  return {
+    dailyData,
+    error,
+    load,
+    setData,
+  }
+}

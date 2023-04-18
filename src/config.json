@@ -8,6 +8,8 @@
       "stateHistoricalDataEndpoint": "/v1/states/{state}/daily.json",
       "stateInfoEndpoint": "/v1/states/{state}/info.json"
     },
+    "serverHostname": "http://127.0.0.1",
+    "serverPort": "3000",
     "getDailyDataEndpoint": "/api/daily",
     "getSummaryEndpoint": "/api/summary",
     "getStatesDataEndpoint": "/api/states",

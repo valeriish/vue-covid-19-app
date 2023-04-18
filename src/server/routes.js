@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const { renderToString } = require('@vue/server-renderer')
+const serialize = require('serialize-javascript')
 
 const manifest = require('../../dist/server/ssr-manifest.json')
 const appPath = path.join(__dirname, '../../dist', 'server', manifest['app.js'])
@@ -16,8 +17,12 @@ module.exports = function(app) {
     await router.push(req.url)
     await router.isReady()
     const { title } = router.getMetaData()
-  
-    let appContent = await renderToString(vueApp)
+    const ctx = { state: [] }
+    let appContent = await renderToString(vueApp, ctx)
+    const renderState = `
+      <script>
+        window.INITIAL_DATA = ${serialize(ctx.state)}
+      </script>`
   
     fs.readFile(
       path.join(__dirname, '../../dist/client/index.html'),
@@ -31,7 +36,7 @@ module.exports = function(app) {
         html = html
           .toString()
           .replace(/<title>(.*)<\/title>/g, `<title>${title}</title>`)
-          .replace('<div id="app"></div>', `${appContent}`)
+          .replace('<div id="app"></div>', `${appContent}${renderState}`)
         res.setHeader('Content-Type', 'text/html')
         res.send(html)
       }
