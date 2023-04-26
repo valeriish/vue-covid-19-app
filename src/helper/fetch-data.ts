@@ -1,15 +1,31 @@
 import type { Ref } from 'vue'
-import type { ConfigType, DataCardAttributeType } from '@/types'
+import type { ConfigType, DataCardAttributeType, DataWindow } from '@/types'
 
 const isSSR = typeof window === 'undefined'
+declare let window: DataWindow
 
 export default function (
-  config: Ref<ConfigType>
+  config: Ref<ConfigType>,
+  type: string | null = null
 ): Promise<DataCardAttributeType[][]> {
   const { resources, schema } = config.value
-  const dailyData: DataCardAttributeType[][] = []
+  let dailyData: DataCardAttributeType[][] = []
 
-  if (resources && schema && resources.getDailyDataEndpoint) {
+  if (
+    !isSSR
+    && type
+    && typeof window['INITIAL_DATA'] === 'object'
+    && Object.keys(window.INITIAL_DATA).includes(type)
+  ) {
+    dailyData = window.INITIAL_DATA[type] as DataCardAttributeType[][]
+  }
+
+  if (
+    dailyData.length === 0
+    && resources
+    && schema
+    && resources.getDailyDataEndpoint
+  ) {
     const host = isSSR ?
       `${resources.serverHostname}:${resources.serverPort}`
       : ''

@@ -17,7 +17,7 @@ module.exports = function(app) {
     await router.push(req.url)
     await router.isReady()
     const { title } = router.getMetaData()
-    const ctx = { state: [] }
+    const ctx = { state: {} }
     let appContent = await renderToString(vueApp, ctx)
     const renderState = `
       <script>

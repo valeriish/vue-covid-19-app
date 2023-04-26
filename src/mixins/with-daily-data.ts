@@ -20,6 +20,7 @@ export class WithDailyData extends Vue {
       error,
       load,
       setData,
+      DATA_TYPE,
     } = useDailyData()
 
     const config: Ref<ConfigType> = useConfig()
@@ -37,10 +38,9 @@ export class WithDailyData extends Vue {
       const data = await load()
       setData(data)
       if (ctx) {
-        ctx.state.push({ daily: data })
+        ctx.state[DATA_TYPE] = data
       }
     })
-    
 
     return {
       dailyData,
