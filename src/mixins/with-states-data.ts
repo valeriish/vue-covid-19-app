@@ -1,4 +1,4 @@
-import { onErrorCaptured } from 'vue'
+import { onErrorCaptured, onServerPrefetch, useSSRContext } from 'vue'
 import { Vue, setup } from 'vue-class-component'
 import { useConfig, useStates } from '@/composable'
 import { getMatchedData } from '@/helper'
@@ -18,6 +18,9 @@ export class WithStatesInfo extends Vue {
     const {
       statesData,
       error,
+      load,
+      setData,
+      DATA_TYPE,
     } = useStates()
     const config: Ref<ConfigType> = useConfig()
     const schema: SchemaType | null  = config.value.schema
@@ -26,6 +29,17 @@ export class WithStatesInfo extends Vue {
       console.log('Something went wrong: ' + error.toString())
 
       return false
+    })
+
+    onServerPrefetch(async () => {
+      const { load } = useStates()
+      const ctx = useSSRContext()
+      const data = await load()
+      setData(data)
+      if (ctx) {
+        console.log(data)
+        ctx.state[DATA_TYPE] = data
+      }
     })
 
     return {

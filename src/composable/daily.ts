@@ -6,7 +6,7 @@ import { fetchData } from '@/helper'
 import type { DataCardAttributeType } from '@/types'
 
 const dailyData: Ref<DataCardAttributeType[][]> = ref([])
-const DATA_TYPE = 'daily'
+const DATA_TYPE = 'dailyData'
 
 /**
  * Store and return Daily History Data
@@ -16,7 +16,7 @@ export const useDailyData = () => {
   const error: Ref<string | null> = ref(null)
 
   const load = async () => {
-    const data = await fetchData(config, DATA_TYPE)
+    const data = await fetchData<DataCardAttributeType[]>(config, DATA_TYPE)
 
     return data
   }

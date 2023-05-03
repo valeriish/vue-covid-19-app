@@ -1,15 +1,22 @@
 import type { Ref } from 'vue'
-import type { ConfigType, DataCardAttributeType, DataWindow } from '@/types'
+import type { ConfigType, DataWindow } from '@/types'
 
 const isSSR = typeof window === 'undefined'
 declare let window: DataWindow
 
-export default function (
+/**
+ * Get Data from remote source or stored INITIAL_DATA
+ * 
+ * @param {ConfigType} config 
+ * @param {string} type 
+ * @returns {Promise}
+ */
+export default function <T> (
   config: Ref<ConfigType>,
-  type: string | null = null
-): Promise<DataCardAttributeType[][]> {
+  type: string = 'dailyData'
+): Promise<T[]> {
   const { resources, schema } = config.value
-  let dailyData: DataCardAttributeType[][] = []
+  let data: T[] = []
 
   if (
     !isSSR
@@ -17,36 +24,36 @@ export default function (
     && typeof window['INITIAL_DATA'] === 'object'
     && Object.keys(window.INITIAL_DATA).includes(type)
   ) {
-    dailyData = window.INITIAL_DATA[type] as DataCardAttributeType[][]
+    data = window.INITIAL_DATA[type] as T[]
   }
 
   if (
-    dailyData.length === 0
+    data.length === 0
     && resources
     && schema
-    && resources.getDailyDataEndpoint
+    && resources.getEndpoint[type]
   ) {
     const host = isSSR ?
       `${resources.serverHostname}:${resources.serverPort}`
       : ''
 
-    return fetch(`${host}${resources.getDailyDataEndpoint}`)
+    return fetch(`${host}${resources.getEndpoint[type]}`)
       .then((res) => res.json())
       .then((json) => {
-        if (!json.dailyData || json.dailyData.length === 0) {
-          return dailyData
+        if (!json[type] || json[type].length === 0) {
+          return data
         }
-        if (schema.history && schema.history.includeFields) {
-          const includeKeys = new Set(schema.history.includeFields)
-          for (const dailyInfo of json.dailyData) {
-            const filteredPairs = Object.entries(dailyInfo).filter(([ key ]) => includeKeys.has(key))
-            dailyData.push(Object.fromEntries(filteredPairs) as any)
+        if (schema[type] && schema[type].includeFields) {
+          const includeKeys = new Set(schema[type].includeFields)
+          for (const item of json[type]) {
+            const filteredPairs = Object.entries(item).filter(([ key ]) => includeKeys.has(key))
+            data.push(Object.fromEntries(filteredPairs) as any)
           }
         }
 
-        return dailyData
+        return data
       })
   }
 
-  return new Promise(resolve => resolve(dailyData))
+  return new Promise(resolve => resolve(data))
 }

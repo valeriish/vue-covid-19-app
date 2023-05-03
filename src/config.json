@@ -10,9 +10,11 @@
     },
     "serverHostname": "http://127.0.0.1",
     "serverPort": "3000",
-    "getDailyDataEndpoint": "/api/daily",
+    "getEndpoint": {
+      "dailyData": "/api/daily",
+      "statesInfo": "/api/states"
+    },
     "getSummaryEndpoint": "/api/summary",
-    "getStatesDataEndpoint": "/api/states",
     "getStateDataEndpoint": "/api/state/{state}"
   },
   "schema": {
@@ -52,7 +54,7 @@
         }
       ]
     },
-    "history": {
+    "dailyData": {
       "includeFields": [
         "date",
         "positive",

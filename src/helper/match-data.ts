@@ -1,5 +1,12 @@
 import type { DataCardAttributeType, SchemaItemType } from '@/types'
 
+/**
+ * Get Attribute from Data Object
+ * 
+ * @param {object} data 
+ * @param {SchemaItemType} schemaItem 
+ * @returns {DataCardAttributeType}
+ */
 function getAttribute (
   data: any,
   schemaItem: SchemaItemType,
@@ -12,6 +19,13 @@ function getAttribute (
   }
 }
 
+/**
+ * Get Attributes Array from Data Object
+ *  
+ * @param {object} data
+ * @param {SchemaItemType} schemaItem 
+ * @returns {DataCardAttributeType[]}
+ */
 export function getMatchedData (
   data: any,
   schema: SchemaItemType[],

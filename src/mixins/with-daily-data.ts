@@ -54,10 +54,10 @@ export class WithDailyData extends Vue {
    */
   casesData(): DataCardAttributeType[][] {
     const casesData = []
-    if (this.ctx.schema && this.ctx.schema.history) {
+    if (this.ctx.schema && this.ctx.schema.dailyData) {
       for (const dailyReport of this.ctx.dailyData) {
         casesData.push(
-          getMatchedData(dailyReport, this.ctx.schema.history.dailyCases)
+          getMatchedData(dailyReport, this.ctx.schema.dailyData.dailyCases)
         )
       }
     }
@@ -70,10 +70,10 @@ export class WithDailyData extends Vue {
    */
   testsData(): DataCardAttributeType[][] {
     const testsData = []
-    if (this.ctx.schema && this.ctx.schema.history) {
+    if (this.ctx.schema && this.ctx.schema.dailyData) {
       for (const dailyReport of this.ctx.dailyData) {
         testsData.push(
-          getMatchedData(dailyReport, this.ctx.schema.history.dailyTest)
+          getMatchedData(dailyReport, this.ctx.schema.dailyData.dailyTest)
         )
       }
     }
@@ -86,10 +86,10 @@ export class WithDailyData extends Vue {
    */
   hospitalizationData(): DataCardAttributeType[][] {
     const hospitalizationData = []
-    if (this.ctx.schema && this.ctx.schema.history) {
+    if (this.ctx.schema && this.ctx.schema.dailyData) {
       for (const dailyReport of this.ctx.dailyData) {
         hospitalizationData.push(
-          getMatchedData(dailyReport, this.ctx.schema.history.dailyHospitalization)
+          getMatchedData(dailyReport, this.ctx.schema.dailyData.dailyHospitalization)
         )
       }
     }
